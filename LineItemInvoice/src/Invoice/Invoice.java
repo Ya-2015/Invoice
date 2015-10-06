@@ -31,7 +31,7 @@ public class Invoice {
 			System.out.print("Unit Price: ?");
 			price = scan.nextDouble();
 			System.out.print("Is Item Taxable: ? yes or no");
-			if (scan.next().equals("yes")){
+			if (scan.next().equalsIgnoreCase("yes")){
 				isTaxable = true;
 			}else{
 				isTaxable = false;
@@ -49,7 +49,7 @@ public class Invoice {
 		System.out.println("Customer Name:\t" + name);
 		System.out.println("Invoice Number:\t" + invoiceNum);
 		System.out.println("Purchase Date:\t" + date);
-		System.out.println("\nPurchase Item\t\t" + "Qty\t" + "Unit Price\t");
+		System.out.println("\nPurchase Item\t\t" + "Qty\t" + "Unit Price\t" + "Cost");
 		double tax = 0;
 		double taxSubTotal = 0;
 		double unTaxSubTotal = 0;
@@ -60,17 +60,18 @@ public class Invoice {
 			if(!items.get(i).getLineItemInstance().isTaxable()){
 				item += "*";
 			}
-			System.out.println(item + "\t\t\t" + items.get(i).getLineItemInstance().getQty() + "\t" + items.get(i).getLineItemInstance().getUnitPrice());
+			
+			System.out.printf("%s\t\t\t%d\t$%.2f\t\t$%.2f\n", item, items.get(i).getLineItemInstance().getQty(),items.get(i).getLineItemInstance().getUnitPrice(),items.get(i).getSubtoatl());
 			tax += items.get(i).getTaxAmount();
 			taxSubTotal += items.get(i).getTaxableSub();
 			unTaxSubTotal += items.get(i).getUntaxableSub();
 			grandTotal += items.get(i).getGrandTotal();
 		}
 		System.out.println();
-		System.out.printf("Taxable Subtotal:\t%.2f\n", taxSubTotal);
-		System.out.printf("UnTaxable Subtotal:\t%.2f\n", unTaxSubTotal);
-		System.out.printf("Tax:\t\t\t%.2f\n", tax);
-		System.out.printf("Grand Total:\t\t%.2f\n", grandTotal);
+		System.out.printf("Taxable Subtotal:\t$%.2f\n", taxSubTotal);
+		System.out.printf("UnTaxable Subtotal:\t$%.2f\n", unTaxSubTotal);
+		System.out.printf("Tax:\t\t\t$%.2f\n", tax);
+		System.out.printf("Grand Total:\t\t$%.2f\n", grandTotal);
 	
 		System.out.println("\n* is tax exempted");
 		scan.close();

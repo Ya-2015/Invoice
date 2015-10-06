@@ -10,7 +10,7 @@ public class ItemCost {
 	public ItemCost(int qty, String des, double price, int num, boolean isTaxable){
 		lineItem = new LineItem(qty, des, price, num, isTaxable);
 		
-		getSubTotal();
+		calculateSubTotal();
 	}
 	
 	public LineItem getLineItemInstance(){
@@ -53,7 +53,11 @@ public class ItemCost {
 		}
 	}
 	
-	private double getSubTotal(){
+	public double getSubtoatl(){
+		return subTotal;
+	}
+	
+	private double calculateSubTotal(){
 		subTotal = 0;
 		
 		double unitPrice = lineItem.getUnitPrice();
