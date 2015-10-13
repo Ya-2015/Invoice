@@ -1,4 +1,5 @@
 package Invoice;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,6 +44,7 @@ public class Invoice {
 			qty = scan.nextInt();
 		}
 		
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		//print invoice
 		System.out.println("\n-------------");
 		System.out.println("Invoice");
@@ -68,10 +70,10 @@ public class Invoice {
 			grandTotal += items.get(i).getGrandTotal();
 		}
 		System.out.println();
-		System.out.printf("Taxable Subtotal:\t$%.2f\n", taxSubTotal);
-		System.out.printf("UnTaxable Subtotal:\t$%.2f\n", unTaxSubTotal);
-		System.out.printf("Tax:\t\t\t$%.2f\n", tax);
-		System.out.printf("Grand Total:\t\t$%.2f\n", grandTotal);
+		System.out.printf("Taxable Subtotal:\t%s\n", currency.format(taxSubTotal));
+		System.out.printf("UnTaxable Subtotal:\t%s\n", currency.format(unTaxSubTotal));
+		System.out.printf("Tax:\t\t\t%s\n", currency.format(tax));
+		System.out.printf("Grand Total:\t\t%s\n", currency.format(grandTotal));
 	
 		System.out.println("\n* is tax exempted");
 		scan.close();
