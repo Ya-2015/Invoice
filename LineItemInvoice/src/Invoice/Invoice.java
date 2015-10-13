@@ -7,6 +7,11 @@ public class Invoice {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		
+		final int QTY_MIN = 0;
+		final int QTY_MAX = 50;
+		final double PRICE_MIN = 0;
+		final double PRICE_MAX = 1000;
+		
 		System.out.print("Customer Name: ?");
 		String name = scan.next();
 		System.out.print("Invoice Number: ?");
@@ -20,17 +25,23 @@ public class Invoice {
 		
 		int qty = -1;
 		String des = "";
-		double price = 0;
+		double price = -1;
 		boolean isTaxable = false;
 		
-		System.out.print("\n\nQuantity: ?");
-		qty = scan.nextInt();
-		
+		do{
+			System.out.printf("\n\nQuantity between %d and %d: ?", QTY_MIN, QTY_MAX);
+			qty = scan.nextInt();
+		}while (qty < QTY_MIN || qty > QTY_MAX);
+			
 		while(qty != 0){
 			System.out.print("Item Description: ?");
 			des = scan.next();
-			System.out.print("Unit Price: ?");
-			price = scan.nextDouble();
+
+			do{
+				System.out.printf("Unit Price between %d and %d: ?", (int)PRICE_MIN, (int)PRICE_MAX);
+				price = scan.nextDouble();
+			}while (price < PRICE_MIN || price > PRICE_MAX);
+			
 			System.out.print("Is Item Taxable: ? yes or no");
 			if (scan.next().equalsIgnoreCase("yes")){
 				isTaxable = true;
@@ -40,8 +51,10 @@ public class Invoice {
 			
 			items.add(new ItemCost(qty, des, price, invoiceNum, isTaxable));
 			
-			System.out.print("\nQuantity: ?");
-			qty = scan.nextInt();
+			do{
+				System.out.printf("\n\nQuantity between %d and %d: ?", QTY_MIN, QTY_MAX);
+				qty = scan.nextInt();
+			}while (qty < QTY_MIN || qty > QTY_MAX);
 		}
 		
 		NumberFormat currency = NumberFormat.getCurrencyInstance();
